@@ -9,6 +9,9 @@
     - [**We Need to go deeper :**](#we-need-to-go-deeper-)
   - [4. Services Métier :](#4-services-métier-)
     - [**Service Web :**](#service-web-)
+    - [**Service de Partage de fichiers :**](#service-de-partage-de-fichiers-)
+  - [5. TCP - UDP :](#5-tcp---udp-)
+  - [5. Schéma Final :](#5-schéma-final-)
 
 
 ## 1. Architecture réseau
@@ -480,3 +483,115 @@ Démarre le service et on teste depuis `marcel.client1.tp3` :
 ```
 
 Le curl fonctionne, notre server web est fonctionnel !
+
+### **Service de Partage de fichiers :**
+
+- Config sur le serveur NFS :  
+
+On configure `idmapd.conf` :  
+
+```
+[lack@nfs1 ~]$ sudo cat /etc/idmapd.conf | grep Domain
+Domain = server2.tp3
+```
+
+On ajoute maintenant un nouveau partage dans le fichier `/etc/exports` :  
+
+```
+[lack@nfs1 ~]$ sudo cat /etc/exports
+/srv/nfs_share 10.3.1.192/28(rw,no_root_squash)
+```
+
+On vérifie que les services sont actif au démarrage :  
+
+```
+[lack@nfs1 ~]$ sudo systemctl is-enabled nfs-server rpcbind
+enabled
+enabled
+```
+
+On autorise les port sur le firewall :  
+
+```
+[lack@nfs1 ~]$ sudo firewall-cmd --permanent --zone=public --add-port=2049/tcp
+success
+[lack@nfs1 ~]$ sudo firewall-cmd --reload
+success
+```
+
+- Maintenant on va passer à la config NFS de `web1.server2.tp3` :  
+
+```
+[lack@nfs1 ~]$ cat /etc/idmapd.conf | grep "Domain ="
+Domain = server2.tp3
+```
+
+On monte le partage NFS sur notre serveur web :  
+
+```
+[lack@web1 ~]$ sudo mount -t nfs nfs.server2.tp3:/srv/nfs_share /srv/nfs
+```
+
+*Vérification :*
+
+```
+[lack@web1 ~]$ df -hT | grep nfs
+nfs.server2.tp3:/srv/nfs_share nfs4      6.2G  2.2G  4.1G  35% /srv/nfs
+```
+
+On ajoute un fichier dans `/srv/nfs/`:  
+
+```
+[lack@web1 nfs]$ ls
+test.ts
+```
+
+Et il est bien présent sur `/srv/nfs_share/` dans notre server nfs :  
+
+```
+[lack@nfs1 nfs_share]$ ls
+test.ts
+```
+
+--------
+
+## 5. TCP - UDP :  
+
+Quels protocoles sont en UDP ou en TCP :  
+
+- DNS :  
+
+![screen-dns-udp](./img/dns_tcp.png)
+
+Sur cette capture on voit que le DNS est en UDP.
+
+- HTTP :  
+
+![screen-http-tcp](./img/http_tcp.png)
+
+Ici, le protocole HTTP utilise le TCP.
+
+- NFS :  
+
+![screen-nfs-tcp](./img/nfs_tcp.png)
+
+Le NFS utilise aussi le TCP.
+
+- SSH :  
+
+![screen-ssh-tcp](./img/ssh_tcp.png)  
+
+Le SSH utilise le TCP.
+
+> Le TCP utilise la méthode du 3ways handshake, on va essayer d'en capturer un.
+
+- Capture d'un 3ways handshake.
+
+![screen-3way-hs](./img/3way-handshake.png)
+
+On voit bien le [SYN], [SYN, ACK], [ACK] *et [FIN, ACK]*.
+
+---
+
+## 5. Schéma Final : 
+
