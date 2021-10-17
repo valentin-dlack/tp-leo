@@ -11,7 +11,8 @@
     - [**Service Web :**](#service-web-)
     - [**Service de Partage de fichiers :**](#service-de-partage-de-fichiers-)
   - [5. TCP - UDP :](#5-tcp---udp-)
-  - [5. Schéma Final :](#5-schéma-final-)
+  - [5. Conclusion, Schéma et Tableaux :](#5-conclusion-schéma-et-tableaux-)
+  - [5.1. Fichiers de conf :](#51-fichiers-de-conf-)
 
 
 ## 1. Architecture réseau
@@ -593,5 +594,38 @@ On voit bien le [SYN], [SYN, ACK], [ACK] *et [FIN, ACK]*.
 
 ---
 
-## 5. Schéma Final : 
+## 5. Conclusion, Schéma et Tableaux : 
 
+Pour finir, voici un schéma du réseau que l'on viens de créer : 
+
+![schema-network-drawio](./img/schm-network.png)
+
+---
+
+Ensuite voici le tableau des réseaux :  
+
+
+| Nom du réseau | Adresse du réseau | Masque            | Nombre de clients possibles | Adresse passerelle | Adresse Broadcast |
+| ------------- | ----------------- | ----------------- | --------------------------- | ------------------ | ----------------- |
+| `client1`     | `10.3.1.128`      | `255.255.255.192` | 62                          | `10.3.1.190`       | `10.3.1.191`      |
+| `server1`     | `10.3.1.0`        | `255.255.255.128` | 126                         | `10.3.1.126`       | `10.3.1.127`      |
+| `server2`     | `10.3.1.192`      | `255.255.255.240` | 14                          | `10.3.1.206`       | `10.3.1.207`      |
+
+Ainsi que le tableau d'adressage : 
+
+| Nom machine          | Adresse IP `client1`   | Adresse IP `server1` | Adresse IP `server2` | Adresse de passerelle |
+| -------------------- | ---------------------- | -------------------- | -------------------- | --------------------- |
+| `router.tp3`         | `10.3.1.190/26`        | `10.3.1.126/25`      | `10.3.1.206/28`      | Carte NAT             |
+| `dhcp.client1.tp3`   | `10.3.1.130/26`        | ...                  | ...                  | `10.3.1.190/26`       |
+| `marcel.client1.tp3` | `DHCP (10.3.1.131/26)` | ...                  | ...                  | `10.3.1.190/26`       |
+| `johnny.client1.tp3` | `DHCP (10.3.1.132/26)` | ...                  | ...                  | `10.3.1.190/26`       |
+| `dns1.server1.tp3`   | ...                    | `10.3.1.2/25`        | ...                  | `10.3.1.126/25`       |
+| `web1.server2.tp3`   | ...                    | ...                  | `10.3.1.194/28`      | `10.3.1.206/28`       |
+| `nfs1.server2.tp3`   | ...                    | ...                  | `10.3.1.195/28`      | `10.3.1.206/28`       |
+| `host-only`          | `10.3.1.129/26`        | `10.3.1.1/25`        | `10.3.1.193/28`      | (host-only)           |
+
+---
+
+## 5.1. Fichiers de conf :  
+
+Tout les fichiers de configuration sont dans **[ce dossier](./conf_files)**

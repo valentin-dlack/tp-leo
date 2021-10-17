@@ -1,0 +1,17 @@
+
+$TTL 86400
+@   IN  SOA     dns1.server2.tp3. root.server2.tp3. (
+        2021072301  ;Serial
+        3600        ;Refresh
+        1800        ;Retry
+        604800      ;Expire
+        86400       ;Minimum TTL
+)
+
+	IN	NS	dns1.
+	IN	A	10.3.1.2
+
+dns	IN	A	10.3.1.2
+router	IN	A	10.3.1.206
+web	IN	A	10.3.1.194
+nfs	IN	A	10.3.1.195
