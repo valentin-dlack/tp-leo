@@ -144,7 +144,9 @@ servers
 
 **/!\ SI CETTE ARCHITECHTURE N'EST PAS RESPECTEE LE BACKUP NE SERA PAS FONCTIONNEL /!\\**
 
+L'installation manuelle est terminée, si vous avez des problèmes allez voir la section [AIDE ET TROUBLESHOOTING](#aide-et-troubleshooting).  
 
+Si vous souhaitez installer une solution de backup pour vos mondes et un timer pour sauvegarder périodiquement allez voir la section [INSTALLATION - Backup et timer](#installation---backup-et-timer).  
 
 ---
 

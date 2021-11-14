@@ -58,6 +58,8 @@ elif [ "${fail}" -eq 0 ];then
 	firewall-cmd --permanent --zone=public --add-port=25565/udp
 	firewall-cmd --reload
 
+	mkdir -p /var/opt/minecraft/servers
+
 	#End of install part
     fi
 else
