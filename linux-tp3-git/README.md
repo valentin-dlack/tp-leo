@@ -162,7 +162,12 @@ Si vous souhaitez installer une solution de backup pour vos mondes et un timer p
 
 ## DEMARRAGE DE CRAFTY 
 
+(On utilise screen pour pas que le serveur s'arrête avec le terminal)
+
 Pour démarrer crafty il suffit de faire ces commandes :  
+
+On démarre une session screen avec le nom `crafty`:  
+`screen -S crafty`
 
 On accède au dossier de crafty:  
 `cd /var/opt/minecraft/crafty` 
@@ -174,6 +179,9 @@ On se log sur l'utilisateur `crafty`:
 
 On éxecute le script de démarrage de crafty:  
 `./run_crafty.sh`
+
+Pour sortir de la session screen il faut faire `CTRL+A+D`  
+Vous pouvez reprendre la session en main en tapant `screen -R crafty`  
 
 Si vous rencontrez des problèmes au démarrage, allez voir la section [AIDE ET TROUBLESHOOTING](#aide-et-troubleshooting). 
 
