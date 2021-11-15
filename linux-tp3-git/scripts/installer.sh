@@ -18,7 +18,7 @@ fi
 
 if [ "${fail}" -eq 1 ];then
     echo "Veuillez vous renseigner sur la documentation :"
-    echo "    [doc link]"
+    echo "    https://github.com/valentin-dlack/tp-leo/edit/master/linux-tp3-git/"
 elif [ "${fail}" -eq 0 ];then
     if [[ $EUID -ne 0 ]]; then
         echo "Note: Vous n'êtes pas en root, Ré-executez ce script en sudo."
