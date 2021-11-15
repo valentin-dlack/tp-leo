@@ -8,6 +8,7 @@
     - [**Configuration de la machine et installation des paquets :**](#configuration-de-la-machine-et-installation-des-paquets-)
     - [**Installation de NetData :**](#installation-de-netdata-)
     - [**Installation de crafty :**](#installation-de-crafty-)
+  - [DEMARRAGE DE CRAFTY](#demarrage-de-crafty)
   - [INSTALLATION - Backup et timer](#installation---backup-et-timer)
   - [AIDE ET TROUBLESHOOTING](#aide-et-troubleshooting)
     - [Crafty -- Manque d'un paquet pip (souvent argon2) :](#crafty----manque-dun-paquet-pip-souvent-argon2-)
@@ -50,8 +51,6 @@ Vous pouvez installer les programmes nécessaires à ce projet avec ce script :
 
 Ou en faisant `wget https://raw.githubusercontent.com/valentin-dlack/tp-leo/master/linux-tp3-git/scripts/installer.sh`  
 
-Si vous souhaitez installer un système de backup pour vos mondes et un timer pour backup régulièrement, allez à la section [INSTALLATION - Backup et timer](#installation---backup-et-timer).
-
 ### **Aide à l'installation de crafty :**
 
 Lors de l'installation de crafty, il faut confirmer certaines informations, voici un petit guide pour savoir quoi mettre :
@@ -62,6 +61,10 @@ Install Crafty to this directory? /var/opt/minecraft/crafty - ['y', 'n']: y
 Which branch of Crafty would you like to run? - ['master', 'dev']: master
 Would you like to make a service file for Crafty? - ['y', 'n']: y
 ```
+
+Pour voir comment démarrer crafty, allez à la section [DEMARRAGE DE CRAFTY](#demarrage-de-crafty)
+
+Si vous souhaitez installer un système de backup pour vos mondes et un timer pour backup régulièrement, allez à la section [INSTALLATION - Backup et timer](#installation---backup-et-timer).
 
 Si vous rencontrez d'autres problèmes, réferrez vous à la section [AIDE ET TROUBLESHOOTING](#aide-et-troubleshooting)
 
@@ -149,9 +152,30 @@ servers
 
 **/!\ SI CETTE ARCHITECHTURE N'EST PAS RESPECTEE LE BACKUP NE SERA PAS FONCTIONNEL /!\\**
 
+Pour voir comment démarrer crafty, allez à la section [DEMARRAGE DE CRAFTY](#demarrage-de-crafty)
+
 L'installation manuelle est terminée, si vous avez des problèmes allez voir la section [AIDE ET TROUBLESHOOTING](#aide-et-troubleshooting).  
 
 Si vous souhaitez installer une solution de backup pour vos mondes et un timer pour sauvegarder périodiquement allez voir la section [INSTALLATION - Backup et timer](#installation---backup-et-timer).  
+
+---
+
+## DEMARRAGE DE CRAFTY 
+
+Pour démarrer crafty il suffit de faire ces commandes :  
+
+On accède au dossier de crafty:  
+`cd /var/opt/minecraft/crafty` 
+
+**ATTENTION : Vous devez absolument démarrer crafty en étant log sur l'user crafty**
+
+On se log sur l'utilisateur `crafty`:  
+`sudo su crafty -`
+
+On éxecute le script de démarrage de crafty:  
+`./run_crafty.sh`
+
+Si vous rencontrez des problèmes au démarrage, allez voir la section [AIDE ET TROUBLESHOOTING](#aide-et-troubleshooting). 
 
 ---
 
